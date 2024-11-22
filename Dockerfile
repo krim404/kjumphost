@@ -41,7 +41,8 @@ RUN echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config
 # GPG-Agent Konfiguration
 RUN mkdir -p ~/.gnupg && \
     echo "enable-ssh-support" >> ~/.gnupg/gpg-agent.conf && \
-    echo "pinentry-program /usr/bin/pinentry-curses" >> ~/.gnupg/gpg-agent.conf
+    echo "pinentry-program /usr/bin/pinentry-curses" >> ~/.gnupg/gpg-agent.conf && \
+    chmod 700 ~/.gnupg/
 
 RUN usermod -s /bin/zsh root
 
