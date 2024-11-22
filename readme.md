@@ -34,8 +34,6 @@ spec:
   selector:
     matchLabels:
       app: kjumphost
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
