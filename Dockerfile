@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:24.04
 
 # Systempackete installieren
 RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
@@ -15,6 +15,8 @@ RUN DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y \
     openssh-server \
     dirmngr \
     && rm -rf /var/lib/apt/lists/*
+
+RUN apt-get upgrade -y
 
 # Oh My Zsh installieren
 RUN sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"

@@ -20,7 +20,7 @@ metadata:
 type: Opaque
 stringData:
   password: "yourpassword"
-
+  name: "yourusername"
 ---
 
 apiVersion: apps/v1
@@ -50,7 +50,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: user-password
-                  key: password
+                  key: password#
+            - name: USER_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: user-password
+                  key: name
           volumeMounts:
             - name: dev-usb
               mountPath: /dev/bus/usb
@@ -84,7 +89,8 @@ spec:
 ```
 
 ### Environment Variables
-USER_PASSWORD: Set the root user password
+USER_PASSWORD: Set the root user password  
+USER_NAME: Set an alias name for the root user
 
 ### Included
 
