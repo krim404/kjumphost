@@ -21,6 +21,7 @@ type: Opaque
 stringData:
   password: "yourpassword"
   name: "yourusername"
+  ssh: "ssh-rsa AAAAx"
 ---
 
 apiVersion: apps/v1
@@ -56,6 +57,11 @@ spec:
                 secretKeyRef:
                   name: user-password
                   key: name
+            - name: USER_SSH
+              valueFrom:
+                secretKeyRef:
+                  name: user-password
+                  key: ssh
           volumeMounts:
             - name: dev-usb
               mountPath: /dev/bus/usb
@@ -91,6 +97,7 @@ spec:
 ### Environment Variables
 USER_PASSWORD: Set the root user password  
 USER_NAME: Set an alias name for the root user
+USER_SSH: Set an ssh key for login
 
 ### Included
 

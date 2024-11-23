@@ -38,7 +38,6 @@ RUN echo "syntax on" > ~/.vimrc && \
 
 RUN mkdir /var/run/sshd
 RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
-RUN echo 'PasswordAuthentication yes' >> /etc/ssh/sshd_config
 
 # GPG-Agent Konfiguration
 RUN mkdir -p ~/.gnupg && \
