@@ -2,7 +2,7 @@ stages:
   - build
   - scan
   - push
-  - cleanup
+  - sign
 
 variables:
   AFTER_SCRIPT_IGNORE_ERRORS: "true"
@@ -43,15 +43,12 @@ push:
   rules:
     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
 
-cleanup-job:
-  stage: cleanup
-  image: docker:27.5.0
-  allow_failure: true
+sign:
+  stage: sign
+  image: bitnami/cosign:latest
+  before_script:
+    - cosign login -u $HARBOR_USERNAME -p $HARBOR_PASSWORD $HARBOR_HOST
   script:
-    - |
-      CONTAINERS=$(docker ps -aq --filter name=builder_$CI_PROJECT_NAME)
-      if [ ! -z "$CONTAINERS" ]; then
-        docker stop $CONTAINERS
-        docker rm $CONTAINERS
-      fi
-  when: always
+    - cosign sign --yes --new-bundle-format=false --use-signing-config=false --key $COSIGN_PRIVATE_KEY $IMAGE_NAME:$CI_COMMIT_REF_SLUG
+  rules:
+     - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
