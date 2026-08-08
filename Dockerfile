@@ -36,7 +36,7 @@ RUN echo "[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh" >> ~/.zshrc
 RUN echo "syntax on" > ~/.vimrc && \
     echo "set mouse-=a" >> ~/.vimrc
 
-RUN mkdir /var/run/sshd
+RUN mkdir -p /var/run/sshd
 RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
 
 # GPG-Agent Konfiguration
